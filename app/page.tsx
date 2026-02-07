@@ -1,5 +1,5 @@
 import { Header } from '@/components/common/Header';
-import { Hero } from '@/components/sections/Hero';
+import { Hero } from '@/components/ui/animated-hero';
 import { Services } from '@/components/sections/Services';
 import { Projects } from '@/components/sections/Projects';
 import { Process } from '@/components/sections/Process';
@@ -9,7 +9,7 @@ import { Footer } from '@/components/common/Footer';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-primary">
+    <main className="min-h-screen">
       <Header />
       <Hero />
       <Services />
