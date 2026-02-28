@@ -143,7 +143,7 @@ export function AboutSection() {
         );
 
         // Items stagger
-        items.forEach((item, i) => {
+        items.forEach((item) => {
           if (!item) return;
           gsap.fromTo(item,
             { y: 15, opacity: 0 },
