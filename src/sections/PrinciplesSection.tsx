@@ -35,41 +35,70 @@ export function PrinciplesSection() {
     if (!section || !header) return;
 
     const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      // Desktop: 3D Reveal
+      mm.add("(min-width: 1024px)", () => {
+        gsap.fromTo(cards,
+          {
+            y: 80,
+            opacity: 0,
+            scale: 0.9,
+            rotateX: -25,
+            perspective: 1000
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            rotateX: 0,
+            duration: 1.5,
+            stagger: 0.2,
+            ease: 'expo.out',
+            scrollTrigger: {
+              trigger: cards[0],
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+      });
+
+      // Mobile: Optimized staggered reveal
+      mm.add("(max-width: 1023px)", () => {
+        gsap.fromTo(cards,
+          {
+            y: 40,
+            opacity: 0,
+            scale: 0.95
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1,
+            stagger: 0.15,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 75%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+      });
+
       // Header animation
       gsap.fromTo(header,
-        { y: 18, opacity: 0 },
+        { y: 30, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.6,
+          duration: 1,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: header,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-
-      // Cards animation - more robust 'fill' effect
-      gsap.fromTo(cards,
-        {
-          y: 60,
-          opacity: 0,
-          scale: 0.9,
-          rotateX: -15
-        },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          rotateX: 0,
-          duration: 1.2,
-          stagger: 0.2,
-          ease: 'expo.out',
-          scrollTrigger: {
-            trigger: cards[0],
-            start: 'top 85%',
+            start: 'top 90%',
             toggleActions: 'play none none reverse',
           },
         }
@@ -109,7 +138,7 @@ export function PrinciplesSection() {
               className="group relative"
             >
               {/* Card Container with glassmorphism */}
-              <div className="relative h-full p-8 lg:p-10 bg-white/[0.02] border border-white/10 group-hover:border-lime/40 transition-all duration-500 overflow-hidden">
+              <div className="relative h-full p-8 lg:p-10 bg-white/[0.02] border border-white/10 group-hover:border-lime/40 group-hover:bg-white/[0.04] group-hover:-translate-y-2 transition-all duration-500 overflow-hidden">
 
                 {/* Hover Glow */}
                 <div className="absolute -inset-px bg-gradient-to-br from-lime/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -119,9 +148,9 @@ export function PrinciplesSection() {
                   {principle.number}
                 </div>
 
-                <div className="relative z-10">
+                <div className="relative z-10 text-center md:text-left">
                   {/* Icon/Number indicator */}
-                  <div className="w-8 h-8 flex items-center justify-center font-mono text-xs text-lime border border-lime/30 mb-8 rounded-sm">
+                  <div className="w-8 h-8 flex items-center justify-center font-mono text-xs text-lime border border-lime/30 mb-8 rounded-sm mx-auto md:mx-0">
                     {principle.number}
                   </div>
 

@@ -80,45 +80,89 @@ export function AboutSection() {
     if (!section || !stack || !text) return;
 
     const ctx = gsap.context(() => {
-      const scrollTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: '+=120%',
-          pin: true,
-          scrub: 1,
-        },
+      const mm = gsap.matchMedia();
+
+      // Desktop: Cinematic pinning with extended stay
+      mm.add("(min-width: 1024px)", () => {
+        const scrollTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: '+=250%', // extra long stay
+            pin: true,
+            scrub: 1,
+          },
+        });
+
+        // Entrance (0-20%)
+        scrollTl
+          .fromTo(text,
+            { y: 50, opacity: 0 },
+            { y: 0, opacity: 1, ease: 'expo.out' },
+            0.1
+          )
+          .fromTo(stack,
+            { y: 70, opacity: 0 },
+            { y: 0, opacity: 1, ease: 'expo.out' },
+            0.2
+          );
+
+        // Individual itmes stagger
+        items.forEach((item, i) => {
+          if (!item) return;
+          scrollTl.fromTo(item,
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, ease: 'power3.out' },
+            0.3 + i * 0.05
+          );
+        });
+
+        // Exit (85-100%) - stays much longer
+        scrollTl
+          .to([text, stack],
+            { y: -50, opacity: 0, stagger: 0.1, ease: 'power2.inOut' },
+            0.85
+          );
       });
 
-      // ENTRANCE - move from subtle y instead of hard x
-      scrollTl
-        .fromTo(text,
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, ease: 'expo.out' },
-          0
-        )
-        .fromTo(stack,
-          { y: 60, opacity: 0 },
-          { y: 0, opacity: 1, ease: 'expo.out' },
-          0.1
+      // Mobile: Natural flow (No pinning)
+      mm.add("(max-width: 1023px)", () => {
+        // Simple entrance triggered by view
+        gsap.fromTo([text, stack],
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'expo.out',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 80%',
+              toggleActions: 'play none none reverse'
+            }
+          }
         );
 
-      // Stack items stagger - smoother
-      items.forEach((item, i) => {
-        if (!item) return;
-        scrollTl.fromTo(item,
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, ease: 'power3.out' },
-          0.2 + i * 0.05
-        );
+        // Items stagger
+        items.forEach((item, i) => {
+          if (!item) return;
+          gsap.fromTo(item,
+            { y: 15, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: item,
+                start: 'top 90%',
+                toggleActions: 'play none none reverse'
+              }
+            }
+          );
+        });
       });
-
-      // EXIT - graceful fade and lift
-      scrollTl
-        .to([text, stack],
-          { y: -30, opacity: 0, stagger: 0.1, ease: 'power2.inOut' },
-          0.8
-        );
     }, section);
 
     return () => ctx.revert();

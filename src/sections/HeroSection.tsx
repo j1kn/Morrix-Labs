@@ -33,6 +33,8 @@ export function HeroSection() {
     if (!section || !content || !code || !headline || !subhead || !cta) return;
 
     const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
       // Initial state - subtle starting point
       gsap.set([headline, subhead, cta], { opacity: 0, y: 30, scale: 0.98 });
       gsap.set(code, { opacity: 0, x: 20, scale: 0.95 });
@@ -40,9 +42,9 @@ export function HeroSection() {
       gsap.set(micros, { opacity: 0 });
 
       // Entrance animation - extra smooth with expo ease
-      const tl = gsap.timeline({ delay: 0.2 });
+      const entranceTl = gsap.timeline({ delay: 0.2 });
 
-      tl.to(headline, {
+      entranceTl.to(headline, {
         opacity: 1,
         y: 0,
         scale: 1,
@@ -84,35 +86,45 @@ export function HeroSection() {
           ease: 'power2.out',
         }, '-=0.4');
 
-      // Scroll-driven exit animation - silk smooth
-      const scrollTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: '+=120%',
-          pin: true,
-          scrub: 1, // increased scrub for smoothness
-          onLeaveBack: () => {
-            gsap.set([headline, subhead, cta], { opacity: 1, y: 0, scale: 1 });
-            gsap.set(code, { opacity: 1, x: 0, scale: 1 });
-            gsap.set(lines, { opacity: 1, x: 0 });
-            gsap.set(micros, { opacity: 1 });
+      // Desktop-only pinning and scrubbed exit
+      mm.add("(min-width: 1024px)", () => {
+        const scrollTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: '+=150%', // increased to stay longer
+            pin: true,
+            scrub: 1,
           },
-        },
+        });
+
+        // Exit phase - drift out with scale down (starts later)
+        scrollTl
+          .fromTo(content,
+            { y: 0, opacity: 1, scale: 1 },
+            { y: '-10vh', opacity: 0, scale: 0.95, ease: 'power2.inOut' },
+            0.8
+          )
+          .fromTo(code,
+            { x: 0, opacity: 1, scale: 1 },
+            { x: '5vw', y: '5vh', opacity: 0, scale: 0.9, ease: 'power2.inOut' },
+            0.8
+          );
       });
 
-      // Exit phase - drift out with scale down
-      scrollTl
-        .fromTo(content,
-          { y: 0, opacity: 1, scale: 1 },
-          { y: '-5vh', opacity: 0, scale: 0.95, ease: 'power2.inOut' },
-          0.6
-        )
-        .fromTo(code,
-          { x: 0, opacity: 1, scale: 1 },
-          { x: '2vw', y: '2vh', opacity: 0, scale: 0.9, ease: 'power2.inOut' },
-          0.6
-        );
+      // Mobile-only simple exit trigger (no pinning)
+      mm.add("(max-width: 1023px)", () => {
+        gsap.to(sectionRef.current, {
+          opacity: 0,
+          y: -50,
+          scrollTrigger: {
+            trigger: section,
+            start: 'bottom 20%', // only fade when nearly gone
+            end: 'bottom top',
+            scrub: true,
+          }
+        });
+      });
     }, section);
 
     return () => ctx.revert();
