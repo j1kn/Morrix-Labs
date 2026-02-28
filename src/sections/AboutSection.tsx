@@ -84,46 +84,40 @@ export function AboutSection() {
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=130%',
+          end: '+=120%',
           pin: true,
-          scrub: 0.5,
+          scrub: 1,
         },
       });
 
-      // ENTRANCE (0% - 30%) - smooth
+      // ENTRANCE - move from subtle y instead of hard x
       scrollTl
-        .fromTo(stack,
-          { x: '-50vw', opacity: 0 },
-          { x: 0, opacity: 1, ease: 'none' },
+        .fromTo(text,
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, ease: 'expo.out' },
           0
         )
-        .fromTo(text,
-          { x: '50vw', opacity: 0 },
-          { x: 0, opacity: 1, ease: 'none' },
-          0
+        .fromTo(stack,
+          { y: 60, opacity: 0 },
+          { y: 0, opacity: 1, ease: 'expo.out' },
+          0.1
         );
 
-      // Stack items stagger
+      // Stack items stagger - smoother
       items.forEach((item, i) => {
         if (!item) return;
         scrollTl.fromTo(item,
-          { x: -20, opacity: 0 },
-          { x: 0, opacity: 1, ease: 'none' },
-          0.05 + i * 0.02
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, ease: 'power3.out' },
+          0.2 + i * 0.05
         );
       });
 
-      // EXIT (70% - 100%) - smooth
+      // EXIT - graceful fade and lift
       scrollTl
-        .fromTo(stack,
-          { x: 0, opacity: 1 },
-          { x: '-15vw', opacity: 0, ease: 'power2.in' },
-          0.7
-        )
-        .fromTo(text,
-          { x: 0, opacity: 1 },
-          { x: '-8vw', opacity: 0, ease: 'power2.in' },
-          0.7
+        .to([text, stack],
+          { y: -30, opacity: 0, stagger: 0.1, ease: 'power2.inOut' },
+          0.8
         );
     }, section);
 
@@ -135,86 +129,89 @@ export function AboutSection() {
       ref={sectionRef}
       className="relative min-h-screen w-full bg-charcoal overflow-hidden z-20"
     >
-      <div className="min-h-screen flex items-center justify-center section-padding gap-8 lg:gap-16">
+      <div className="min-h-screen flex items-center justify-center section-padding">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24 max-w-6xl mx-auto">
 
-        {/* Left Side - Tech Stack (Vertical) */}
-        <div
-          ref={stackRef}
-          className="hidden lg:flex flex-col w-[280px] flex-shrink-0"
-        >
-          <div className="p-6 bg-card border border-border">
-            <div className="font-mono text-xs text-muted-foreground uppercase tracking-wider mb-6">
-              Tech Stack
+          {/* Text Block - Now first in mobile and left on desktop */}
+          <div ref={textRef} className="order-1 lg:order-1 flex-1 max-w-xl text-center lg:text-left">
+            {/* Eyebrow */}
+            <div className="font-mono text-xs tracking-[0.12em] text-muted-foreground uppercase mb-6">
+              About Morrix Labs
             </div>
 
-            <div className="space-y-1">
-              {techStack.map((tool, index) => (
-                <div
-                  key={tool.name}
-                  ref={(el) => { if (el) itemRefs.current[index] = el; }}
-                  className="group flex items-center gap-4 p-3 hover:bg-charcoal transition-colors duration-300 cursor-default"
-                >
-                  {/* Icon with brand color */}
+            {/* Headline */}
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.05] mb-8">
+              <span className="text-foreground">Design is a system.</span>
+              <br />
+              <span className="text-foreground">Code is the medium.</span>
+            </h2>
+
+            {/* Divider */}
+            <div className="w-24 h-px bg-border mb-8 mx-auto lg:mx-0" />
+
+            {/* Body */}
+            <p className="text-muted-foreground leading-relaxed mb-10 max-w-md mx-auto lg:mx-0">
+              We're a small team of designers and engineers who turn complex ideas into fast,
+              usable products. We prototype early, iterate in public, and ship work that lasts.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-lime text-charcoal font-mono text-xs tracking-wider hover:bg-lime-dark transition-colors"
+              >
+                Start a project
+              </a>
+              <button className="inline-flex items-center gap-2 px-5 py-2.5 border border-border font-mono text-xs tracking-wider text-foreground hover:border-foreground/30 transition-colors">
+                Download capabilities (PDF)
+              </button>
+            </div>
+          </div>
+
+          {/* Tech Stack - Now second in mobile and fixed to right side on desktop */}
+          <div
+            ref={stackRef}
+            className="order-2 lg:order-2 flex flex-col w-full sm:w-[320px] flex-shrink-0 items-center lg:items-start"
+          >
+            <div className="w-full p-6 lg:p-8 bg-card border border-border shadow-2xl relative group">
+              {/* Subtle top light effect */}
+              <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-lime/30 to-transparent" />
+
+              <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-[0.2em] mb-8 opacity-50">
+                Core Stack
+              </div>
+
+              <div className="grid grid-cols-2 lg:grid-cols-1 gap-2">
+                {techStack.map((tool, index) => (
                   <div
-                    className="w-10 h-10 flex items-center justify-center rounded bg-charcoal border border-border group-hover:border-current transition-colors duration-300"
-                    style={{ color: tool.color }}
+                    key={tool.name}
+                    ref={(el) => { if (el) itemRefs.current[index] = el; }}
+                    className="group/item flex items-center gap-4 p-3 hover:bg-white/5 transition-all duration-300 rounded-sm"
                   >
-                    {tool.icon}
+                    <div
+                      className="w-10 h-10 flex items-center justify-center rounded-sm bg-charcoal border border-border group-hover/item:border-current transition-all duration-500"
+                      style={{ color: tool.color }}
+                    >
+                      {tool.icon}
+                    </div>
+                    <span className="font-mono text-xs text-muted-foreground group-hover/item:text-foreground transition-colors duration-300">
+                      {tool.name}
+                    </span>
                   </div>
+                ))}
+              </div>
+            </div>
 
-                  {/* Name */}
-                  <span className="font-mono text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
-                    {tool.name}
-                  </span>
-                </div>
-              ))}
+            {/* Decorative element */}
+            <div className="mt-8 flex items-center gap-4 opacity-40 group hover:opacity-100 transition-opacity">
+              <div className="w-8 h-px bg-lime transition-all group-hover:w-12" />
+              <span className="font-mono text-[10px] text-muted-foreground tracking-widest uppercase">
+                vibe coding
+              </span>
             </div>
           </div>
 
-          {/* Decorative line */}
-          <div className="mt-6 flex items-center gap-3">
-            <div className="w-12 h-px bg-lime/30" />
-            <span className="font-mono text-[10px] text-muted-foreground/50">
-              vibe coding
-            </span>
-          </div>
-        </div>
-
-        {/* Text Block */}
-        <div ref={textRef} className="flex-1 max-w-2xl">
-          {/* Eyebrow */}
-          <div className="font-mono text-xs tracking-[0.12em] text-muted-foreground uppercase mb-6">
-            About Morrix Labs
-          </div>
-
-          {/* Headline */}
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.05] mb-8">
-            <span className="text-foreground">Design is a system.</span>
-            <br />
-            <span className="text-foreground">Code is the medium.</span>
-          </h2>
-
-          {/* Divider */}
-          <div className="w-32 h-px bg-border mb-8" />
-
-          {/* Body */}
-          <p className="text-muted-foreground leading-relaxed mb-10 max-w-md">
-            We're a small team of designers and engineers who turn complex ideas into fast,
-            usable products. We prototype early, iterate in public, and ship work that lasts.
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-wrap gap-4">
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-lime text-charcoal font-mono text-xs tracking-wider hover:bg-lime-dark transition-colors"
-            >
-              Start a project
-            </a>
-            <button className="inline-flex items-center gap-2 px-5 py-2.5 border border-border font-mono text-xs tracking-wider text-foreground hover:border-foreground/30 transition-colors">
-              Download capabilities (PDF)
-            </button>
-          </div>
         </div>
       </div>
     </section>

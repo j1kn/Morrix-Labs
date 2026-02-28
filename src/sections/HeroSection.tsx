@@ -33,81 +33,85 @@ export function HeroSection() {
     if (!section || !content || !code || !headline || !subhead || !cta) return;
 
     const ctx = gsap.context(() => {
-      // Initial state
-      gsap.set([headline, subhead, cta], { opacity: 0, y: 20 });
-      gsap.set(code, { opacity: 0, x: 30 });
+      // Initial state - subtle starting point
+      gsap.set([headline, subhead, cta], { opacity: 0, y: 30, scale: 0.98 });
+      gsap.set(code, { opacity: 0, x: 20, scale: 0.95 });
       gsap.set(lines, { opacity: 0, x: -10 });
       gsap.set(micros, { opacity: 0 });
 
-      // Entrance animation - smooth and subtle
-      const tl = gsap.timeline({ delay: 0.3 });
-      
+      // Entrance animation - extra smooth with expo ease
+      const tl = gsap.timeline({ delay: 0.2 });
+
       tl.to(headline, {
         opacity: 1,
         y: 0,
-        duration: 0.8,
-        ease: 'power2.out',
+        scale: 1,
+        duration: 1.2,
+        ease: 'expo.out',
       })
-      .to(subhead, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-      }, '-=0.4')
-      .to(cta, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-      }, '-=0.3')
-      .to(code, {
-        opacity: 1,
-        x: 0,
-        duration: 0.8,
-        ease: 'power2.out',
-      }, '-=0.6')
-      .to(lines, {
-        opacity: 1,
-        x: 0,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: 'power2.out',
-      }, '-=0.4')
-      .to(micros, {
-        opacity: 1,
-        duration: 0.4,
-        stagger: 0.08,
-        ease: 'power2.out',
-      }, '-=0.2');
+        .to(subhead, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: 'expo.out',
+        }, '-=0.9')
+        .to(cta, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: 'expo.out',
+        }, '-=0.7')
+        .to(code, {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 1.2,
+          ease: 'expo.out',
+        }, '-=1')
+        .to(lines, {
+          opacity: 1,
+          x: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: 'power3.out',
+        }, '-=0.8')
+        .to(micros, {
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: 'power2.out',
+        }, '-=0.4');
 
-      // Scroll-driven exit animation - smooth
+      // Scroll-driven exit animation - silk smooth
       const scrollTl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=130%',
+          end: '+=120%',
           pin: true,
-          scrub: 0.5,
+          scrub: 1, // increased scrub for smoothness
           onLeaveBack: () => {
-            gsap.set([headline, subhead, cta], { opacity: 1, y: 0 });
-            gsap.set(code, { opacity: 1, x: 0 });
+            gsap.set([headline, subhead, cta], { opacity: 1, y: 0, scale: 1 });
+            gsap.set(code, { opacity: 1, x: 0, scale: 1 });
             gsap.set(lines, { opacity: 1, x: 0 });
             gsap.set(micros, { opacity: 1 });
           },
         },
       });
 
-      // Exit phase (70% - 100%) - smooth fade out
+      // Exit phase - drift out with scale down
       scrollTl
         .fromTo(content,
-          { y: 0, opacity: 1 },
-          { y: '-10vh', opacity: 0, ease: 'power2.in' },
-          0.7
+          { y: 0, opacity: 1, scale: 1 },
+          { y: '-5vh', opacity: 0, scale: 0.95, ease: 'power2.inOut' },
+          0.6
         )
         .fromTo(code,
-          { x: 0, opacity: 1 },
-          { x: '5vw', opacity: 0, ease: 'power2.in' },
-          0.7
+          { x: 0, opacity: 1, scale: 1 },
+          { x: '2vw', y: '2vh', opacity: 0, scale: 0.9, ease: 'power2.inOut' },
+          0.6
         );
     }, section);
 
@@ -127,7 +131,7 @@ export function HeroSection() {
       className="relative min-h-screen w-full bg-charcoal overflow-hidden"
     >
       {/* Subtle grid background */}
-      <div 
+      <div
         className="absolute inset-0 opacity-[0.02]"
         style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
@@ -140,7 +144,7 @@ export function HeroSection() {
       <div className="relative z-10 min-h-screen flex items-center">
         <div className="w-full section-padding">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-            
+
             {/* Left - Text Content */}
             <div ref={contentRef} className="flex-1 max-w-xl">
               {/* Headline */}
@@ -183,7 +187,7 @@ export function HeroSection() {
             </div>
 
             {/* Right - Code Lines */}
-            <div 
+            <div
               ref={codeRef}
               className="flex-1 w-full max-w-md lg:max-w-lg"
             >
