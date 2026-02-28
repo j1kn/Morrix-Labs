@@ -11,9 +11,7 @@ const techStack = [
     color: '#D4A574',
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-        <circle cx="6" cy="6" r="2" /><circle cx="12" cy="6" r="2" /><circle cx="18" cy="6" r="2" />
-        <circle cx="6" cy="12" r="2" /><circle cx="12" cy="12" r="2" /><circle cx="18" cy="12" r="2" />
-        <circle cx="6" cy="18" r="2" /><circle cx="12" cy="18" r="2" /><circle cx="18" cy="18" r="2" />
+        <path d="M12.924 1.109a1.05 1.05 0 00-1.848 0L9.423 4.21c-.138.25-.42.394-.702.36L5.232 4.131a1.05 1.05 0 00-1.16 1.16l.439 3.489c.034.282-.11.564-.36.702l-3.101 1.653a1.05 1.05 0 000 1.848l3.101 1.653c.25.138.394.42.36.702l-.44 3.489a1.05 1.05 0 001.16 1.16l3.489-.439c.282-.034.564.11.702.36l1.653 3.101a1.05 1.05 0 001.848 0l1.653-3.101c.138-.25.42-.394.702-.36l3.489.439a1.05 1.05 0 001.16-1.16l-.439-3.489c-.034-.282.11-.564.36-.702l3.101-1.653a1.05 1.05 0 000-1.848l-3.101-1.653c-.25-.138-.394-.42-.36-.702l.44-3.489a1.05 1.05 0 00-1.16-1.16l-3.489.439c-.282.034-.564-.11-.702-.36L12.924 1.109z" />
       </svg>
     ),
   },
@@ -22,7 +20,7 @@ const techStack = [
     color: '#7DD3FC',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6">
-        <rect x="3" y="11" width="18" height="10" rx="2" /><circle cx="12" cy="5" r="2" /><path d="M12 7v4M8 16h.01M16 16h.01" />
+        <path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.071-7.071l-1.414 1.414M7.757 16.243l-1.414 1.414m10.728 0l1.414 1.414M7.757 7.757L6.343 6.343M12 7a5 5 0 100 10 5 5 0 000-10z" />
       </svg>
     ),
   },
@@ -31,8 +29,7 @@ const techStack = [
     color: '#B7FF3A',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6">
-        <path d="M12 19V5M12 5L7 10M12 5L17 10" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M5 21h14" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
       </svg>
     ),
   },
@@ -41,7 +38,7 @@ const techStack = [
     color: '#F472B6',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6">
-        <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
       </svg>
     ),
   },
@@ -64,6 +61,7 @@ const techStack = [
     ),
   },
 ];
+
 
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -173,8 +171,8 @@ export function AboutSection() {
       ref={sectionRef}
       className="relative min-h-screen w-full bg-charcoal overflow-hidden z-20"
     >
-      <div className="min-h-screen flex items-center justify-center section-padding">
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24 max-w-6xl mx-auto">
+      <div className="min-h-screen flex items-center justify-center section-padding py-24 lg:py-0">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-20 lg:gap-24 max-w-6xl mx-auto">
 
           {/* Text Block - Now first in mobile and left on desktop */}
           <div ref={textRef} className="order-1 lg:order-1 flex-1 max-w-xl text-center lg:text-left">
