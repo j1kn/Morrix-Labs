@@ -41,50 +41,50 @@ export function HeroSection() {
       gsap.set(lines, { opacity: 0, x: -10 });
       gsap.set(micros, { opacity: 0 });
 
-      // Entrance animation - extra smooth with expo ease
-      const entranceTl = gsap.timeline({ delay: 0.2 });
+      // Entrance animation - extra smooth with refined expo ease
+      const entranceTl = gsap.timeline({ delay: 0.3 });
 
       entranceTl.to(headline, {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: 1.2,
-        ease: 'expo.out',
+        duration: 1.6,
+        ease: 'power4.out',
       })
         .to(subhead, {
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 1,
-          ease: 'expo.out',
-        }, '-=0.9')
+          duration: 1.2,
+          ease: 'power4.out',
+        }, '-=1.3')
         .to(cta, {
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 0.8,
-          ease: 'expo.out',
-        }, '-=0.7')
+          duration: 1,
+          ease: 'power4.out',
+        }, '-=1.1')
         .to(code, {
           opacity: 1,
           x: 0,
           scale: 1,
-          duration: 1.2,
-          ease: 'expo.out',
-        }, '-=1')
+          duration: 1.8,
+          ease: 'power4.out',
+        }, '-=1.4')
         .to(lines, {
           opacity: 1,
           x: 0,
-          duration: 0.7,
-          stagger: 0.08,
-          ease: 'power3.out',
-        }, '-=0.8')
-        .to(micros, {
-          opacity: 1,
-          duration: 0.6,
+          duration: 0.8,
           stagger: 0.1,
           ease: 'power2.out',
-        }, '-=0.4');
+        }, '-=1.2')
+        .to(micros, {
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+        }, '-=0.6');
 
       // Desktop-only pinning and scrubbed exit
       mm.add("(min-width: 1024px)", () => {
@@ -92,24 +92,27 @@ export function HeroSection() {
           scrollTrigger: {
             trigger: section,
             start: 'top top',
-            end: '+=150%', // increased to stay longer
+            end: '+=200%', // stay even longer
             pin: true,
-            scrub: 1,
+            scrub: 1.2, // smoother float
           },
         });
 
         // Exit phase - drift out with scale down (starts later)
         scrollTl
-          .fromTo(content,
-            { y: 0, opacity: 1, scale: 1 },
-            { y: '-10vh', opacity: 0, scale: 0.95, ease: 'power2.inOut' },
-            0.8
-          )
-          .fromTo(code,
-            { x: 0, opacity: 1, scale: 1 },
-            { x: '5vw', y: '5vh', opacity: 0, scale: 0.9, ease: 'power2.inOut' },
-            0.8
-          );
+          .to(content, {
+            y: '-15vh',
+            opacity: 0,
+            scale: 0.94,
+            ease: 'power3.inOut',
+          }, 0.7)
+          .to(code, {
+            x: '8vw',
+            y: '8vh',
+            opacity: 0,
+            scale: 0.88,
+            ease: 'power3.inOut',
+          }, 0.7);
       });
 
       // Mobile-only simple exit trigger (no pinning)

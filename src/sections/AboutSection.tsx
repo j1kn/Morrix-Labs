@@ -86,40 +86,40 @@ export function AboutSection() {
           scrollTrigger: {
             trigger: section,
             start: 'top top',
-            end: '+=250%', // extra long stay
+            end: '+=300%', // stay even longer
             pin: true,
-            scrub: 1,
+            scrub: 1.5, // much smoother
           },
         });
 
-        // Entrance (0-20%)
+        // Entrance (0-25%)
         scrollTl
           .fromTo(text,
-            { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, ease: 'expo.out' },
+            { y: 60, opacity: 0 },
+            { y: 0, opacity: 1, ease: 'power4.out' },
             0.1
           )
           .fromTo(stack,
-            { y: 70, opacity: 0 },
-            { y: 0, opacity: 1, ease: 'expo.out' },
-            0.2
+            { y: 80, opacity: 0 },
+            { y: 0, opacity: 1, ease: 'power4.out' },
+            0.15
           );
 
         // Individual itmes stagger
         items.forEach((item, i) => {
           if (!item) return;
           scrollTl.fromTo(item,
-            { y: 20, opacity: 0 },
-            { y: 0, opacity: 1, ease: 'power3.out' },
-            0.3 + i * 0.05
+            { y: 30, opacity: 0, scale: 0.95 },
+            { y: 0, opacity: 1, scale: 1, ease: 'power3.out' },
+            0.2 + i * 0.04
           );
         });
 
-        // Exit (85-100%) - stays much longer
+        // Exit (80-100%)
         scrollTl
           .to([text, stack],
-            { y: -50, opacity: 0, stagger: 0.1, ease: 'power2.inOut' },
-            0.85
+            { y: -60, opacity: 0, stagger: 0.05, ease: 'power3.inOut' },
+            0.8
           );
       });
 
