@@ -65,7 +65,7 @@ export default function Hero() {
                     and brand systems for founders and companies who refuse to settle.
                 </p>
 
-                <div style={{
+                <div className="cta-container" style={{
                     display: 'flex',
                     gap: '16px',
                     justifyContent: 'center',
@@ -80,7 +80,7 @@ export default function Hero() {
                 </div>
             </div>
 
-            <div style={{
+            <div className="scroll-arrow" style={{
                 position: 'absolute',
                 bottom: '40px',
                 animation: 'bounce 2s infinite',
@@ -97,16 +97,18 @@ export default function Hero() {
         }
         @media (max-width: 767px) {
           section {
-            padding-top: 100px !important;
+            padding-top: 120px !important;
             justify-content: flex-start !important;
             text-align: left !important;
             align-items: flex-start !important;
           }
           .reveal {
             text-align: left !important;
+            width: 100%;
           }
           h1 {
-            font-size: clamp(36px, 12vw, 64px) !important;
+            font-size: clamp(40px, 12vw, 64px) !important;
+            line-height: 1.1 !important;
             text-align: left !important;
           }
           h2 {
@@ -114,11 +116,27 @@ export default function Hero() {
             text-align: left !important;
           }
           p {
-            margin-left: 0 !important;
             text-align: left !important;
+            margin-bottom: 40px !important;
           }
-          div {
+          /* CTA Buttons - Horizontal layout */
+          .cta-container {
+            display: flex !important;
+            flex-direction: row !important;
             justify-content: flex-start !important;
+            gap: 12px !important;
+            width: 100%;
+          }
+          .btn-primary, .btn-ghost {
+            padding: 10px 16px !important;
+            font-size: 13px !important;
+            flex: 1;
+            justify-content: center;
+          }
+          /* Center the bottom arrow */
+          .scroll-arrow {
+            left: 50% !important;
+            transform: translateX(-50%) rotate(45deg) !important;
           }
         }
       `}</style>
