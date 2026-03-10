@@ -95,6 +95,32 @@ export default function Hero() {
           40% { transform: translateY(-10px); }
           60% { transform: translateY(-5px); }
         }
+        @media (max-width: 767px) {
+          section {
+            padding-top: 100px !important;
+            justify-content: flex-start !important;
+            text-align: left !important;
+            align-items: flex-start !important;
+          }
+          .reveal {
+            text-align: left !important;
+          }
+          h1 {
+            font-size: clamp(36px, 12vw, 64px) !important;
+            text-align: left !important;
+          }
+          h2 {
+            font-size: clamp(24px, 8vw, 40px) !important;
+            text-align: left !important;
+          }
+          p {
+            margin-left: 0 !important;
+            text-align: left !important;
+          }
+          div {
+            justify-content: flex-start !important;
+          }
+        }
       `}</style>
         </section>
     );

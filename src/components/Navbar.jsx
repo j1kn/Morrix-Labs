@@ -35,13 +35,28 @@ export default function Navbar() {
                 }}>
                     {/* Logo */}
                     <a href="#" style={{
-                        fontFamily: 'var(--font-heading)',
-                        fontSize: '20px',
-                        fontWeight: 600,
-                        letterSpacing: '-0.02em',
-                        color: 'var(--text-primary)'
+                        display: 'flex',
+                        alignItems: 'center',
+                        textDecoration: 'none'
                     }}>
-                        Morrix Labs
+                        <div style={{
+                            height: '24px',
+                            overflow: 'hidden',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <img
+                                src="/logo.png"
+                                alt="Morrix Labs"
+                                style={{
+                                    height: '80px', // Larger height to allow cropping
+                                    width: 'auto',
+                                    display: 'block',
+                                    marginTop: '2px' // Small adjustment to center the wordmark
+                                }}
+                            />
+                        </div>
                     </a>
 
                     {/* Desktop Nav */}
@@ -108,6 +123,11 @@ export default function Navbar() {
                 </div>
             )}
             <style>{`
+        @media (max-width: 767px) {
+          nav {
+            padding: 16px 0 !important;
+          }
+        }
         @media (min-width: 768px) {
           .desktop-nav { display: block !important; }
           .mobile-toggle { display: none !important; }
