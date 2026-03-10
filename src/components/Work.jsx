@@ -3,18 +3,24 @@ import { ArrowRight } from 'lucide-react';
 
 const projects = [
     {
-        title: "NexScale CRM",
-        category: "Web App · UX/UI",
+        title: "LC Labs",
+        category: "Web App · Design",
+        link: "https://lclabs.org",
+        image: "/lclabs.jpg",
         gradient: "linear-gradient(135deg, #1f1f1f, #0a0a0a)"
     },
     {
-        title: "Aura Identity",
-        category: "Branding · Motion",
+        title: "Vishy",
+        category: "E-commerce · Branding",
+        link: "https://www.vishy.co.uk",
+        image: "/vishy.jpg",
         gradient: "linear-gradient(135deg, #101010, #222222)"
     },
     {
-        title: "Vanguard Platform",
-        category: "Web Design · SEO",
+        title: "HJM Transportation",
+        category: "Corporate Site · SEO",
+        link: "https://hjmtransportation.uk",
+        image: "/hjm.jpg",
         gradient: "linear-gradient(135deg, #050505, #1a1a1a)"
     }
 ];
@@ -32,22 +38,23 @@ export default function Work() {
                 marginBottom: '64px'
             }}>
                 {projects.map((proj, i) => (
-                    <div key={i} className="work-card" style={{ cursor: 'pointer' }}>
-                        {/* Image Placeholder */}
+                    <a href={proj.link} target="_blank" rel="noopener noreferrer" key={i} className="work-card" style={{ cursor: 'pointer', display: 'block' }}>
+                        {/* Image Layer */}
                         <div style={{
                             width: '100%',
                             aspectRatio: '4/3',
-                            background: proj.gradient,
+                            background: proj.image ? `url(${proj.image}) center/cover no-repeat` : proj.gradient,
                             borderRadius: '8px',
                             overflow: 'hidden',
                             position: 'relative',
                             marginBottom: '24px',
                             border: '1px solid #1E1E1E'
                         }}>
+                            {/* Dark gradient overlay to ensure text stands out if there was text inside but mostly for blending */}
                             <div className="image-overlay" style={{
                                 position: 'absolute',
                                 top: 0, left: 0, width: '100%', height: '100%',
-                                background: 'rgba(255,255,255,0.02)',
+                                background: proj.image ? 'linear-gradient(to bottom, rgba(10,10,10,0.2), rgba(10,10,10,0.8))' : 'rgba(255,255,255,0.02)',
                                 transition: 'transform 0.5s ease-out'
                             }}></div>
                             <div className="hover-line" style={{
@@ -71,10 +78,10 @@ export default function Work() {
                                 fontSize: '14px',
                                 transition: 'var(--transition)'
                             }}>
-                                View <ArrowRight size={14} />
+                                Visit <ArrowRight size={14} />
                             </div>
                         </div>
-                    </div>
+                    </a>
                 ))}
             </div>
 

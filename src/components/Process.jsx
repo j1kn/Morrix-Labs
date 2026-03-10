@@ -16,42 +16,65 @@ export default function Process() {
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '40px',
+                gap: '80px',
                 position: 'relative',
-                marginTop: '64px'
+                marginTop: '100px',
+                marginBottom: '100px'
             }} className="process-grid">
 
-                {/* Connecting Line (Desktop) */}
+                {/* Connecting Line (Desktop) with a pulse animation */}
                 <div className="connecting-line" style={{
                     position: 'absolute',
-                    top: '32px',
+                    top: '48px',
                     left: '5%',
                     right: '5%',
                     height: '1px',
-                    background: 'linear-gradient(90deg, transparent, #222 10%, #222 90%, transparent)',
+                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1) 10%, rgba(255,255,255,0.1) 90%, transparent)',
                     zIndex: 0
-                }}></div>
+                }}>
+                    <div className="magic-dot" style={{
+                        position: 'absolute',
+                        top: '-3px',
+                        left: '0',
+                        width: '7px',
+                        height: '7px',
+                        backgroundColor: '#fff',
+                        borderRadius: '50%',
+                        boxShadow: '0 0 10px 2px rgba(255,255,255,0.5)',
+                        animation: 'travel 6s infinite linear'
+                    }}></div>
+                </div>
 
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(4, 1fr)',
-                    gap: '24px',
+                    gap: '40px',
                     position: 'relative',
                     zIndex: 1
                 }} className="steps-container">
                     {steps.map((step, i) => (
-                        <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                        <div key={i} className="process-step" style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '24px',
+                            padding: '32px 24px',
+                            backgroundColor: 'rgba(17,17,17,0.4)',
+                            border: '1px solid #1e1e1e',
+                            borderRadius: '12px',
+                            transition: 'all var(--transition)'
+                        }}>
                             <div style={{
-                                fontSize: '48px',
-                                fontWeight: 600,
-                                color: 'rgba(255,255,255,0.1)',
+                                fontSize: '64px',
+                                fontWeight: 700,
+                                color: 'rgba(255,255,255,0.05)',
                                 fontFamily: 'var(--font-heading)',
-                                lineHeight: 1
-                            }}>
+                                lineHeight: 1,
+                                transition: 'color var(--transition)'
+                            }} className="step-number">
                                 {step.num}
                             </div>
-                            <h3 style={{ fontSize: '24px' }}>{step.title}</h3>
-                            <p style={{ color: 'var(--text-secondary)', fontSize: '14px', maxWidth: '240px' }}>
+                            <h3 style={{ fontSize: '24px', letterSpacing: '-0.02em' }}>{step.title}</h3>
+                            <p style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: '1.6' }}>
                                 {step.desc}
                             </p>
                         </div>
@@ -60,6 +83,23 @@ export default function Process() {
             </div>
 
             <style>{`
+        .process-step:hover {
+          border-color: #333 !important;
+          transform: translateY(-5px);
+          box-shadow: var(--glow-shadow);
+        }
+
+        .process-step:hover .step-number {
+          color: rgba(255,255,255,0.4) !important;
+        }
+
+        @keyframes travel {
+          0% { left: 0; opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { left: 100%; opacity: 0; }
+        }
+
         @media (max-width: 900px) {
           .steps-container {
             grid-template-columns: 1fr !important;

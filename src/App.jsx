@@ -7,6 +7,7 @@ import Work from './components/Work';
 import Process from './components/Process';
 import CTA from './components/CTA';
 import Philosophy from './components/Philosophy';
+import Contact from './components/Contact';
 import Footer from './components/Footer';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
@@ -23,6 +24,7 @@ export default function App() {
       <Process />
       <CTA />
       <Philosophy />
+      <Contact />
       <Footer />
     </>
   );
