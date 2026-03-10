@@ -9,7 +9,7 @@ const steps = [
 
 export default function Process() {
     return (
-        <section className="container reveal" style={{ overflow: 'hidden' }}>
+        <section className="container reveal" style={{ overflow: 'hidden', paddingTop: '200px' }}>
             <div className="section-label">— How We Work —</div>
             <h2 className="section-heading">From Brief to Launch</h2>
 
@@ -18,32 +18,9 @@ export default function Process() {
                 flexDirection: 'column',
                 gap: '80px',
                 position: 'relative',
-                marginTop: '100px',
+                marginTop: '64px',
                 marginBottom: '100px'
             }} className="process-grid">
-
-                {/* Connecting Line (Desktop) with a pulse animation */}
-                <div className="connecting-line" style={{
-                    position: 'absolute',
-                    top: '48px',
-                    left: '5%',
-                    right: '5%',
-                    height: '1px',
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1) 10%, rgba(255,255,255,0.1) 90%, transparent)',
-                    zIndex: 0
-                }}>
-                    <div className="magic-dot" style={{
-                        position: 'absolute',
-                        top: '-3px',
-                        left: '0',
-                        width: '7px',
-                        height: '7px',
-                        backgroundColor: '#fff',
-                        borderRadius: '50%',
-                        boxShadow: '0 0 10px 2px rgba(255,255,255,0.5)',
-                        animation: 'travel 6s infinite linear'
-                    }}></div>
-                </div>
 
                 <div style={{
                     display: 'grid',
