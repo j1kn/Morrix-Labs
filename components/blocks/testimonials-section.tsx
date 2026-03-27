@@ -47,23 +47,31 @@ const testimonials = [
 
 export default function TestimonialsSection() {
     return (
-        <section id="testimonials" className="bg-background my-12 md:my-20 relative">
+        <section id="testimonials" className="py-16 md:py-24 bg-background">
             <div className="container">
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }} viewport={{ once: true }} className="flex flex-col items-center justify-center max-w-[540px] mx-auto text-center px-4">
-                    <div className="flex justify-center">
-                        <div className="border py-1 px-4 rounded-lg text-xs sm:text-sm">Client Stories</div>
+                <div className="mx-auto max-w-5xl">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }} 
+                        whileInView={{ opacity: 1, y: 0 }} 
+                        transition={{ duration: 0.8, delay: 0.1 }} 
+                        viewport={{ once: true }} 
+                        className="flex flex-col items-center justify-center text-center mb-12 md:mb-16 px-4"
+                    >
+                        <div className="flex justify-center">
+                            <div className="border py-1 px-4 rounded-lg text-xs sm:text-sm">Client Stories</div>
+                        </div>
+                        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tighter mt-5">
+                            Trusted by founders, teams & growing brands
+                        </h2>
+                        <p className="text-center mt-4 sm:mt-5 opacity-75 text-sm sm:text-base max-w-xl">
+                            Don&apos;t take our word for it — hear what our clients have to say.
+                        </p>
+                    </motion.div>
+                    <div className="flex justify-center gap-4 sm:gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[500px] sm:max-h-[600px] md:max-h-[740px] overflow-hidden">
+                        <TestimonialsColumn testimonials={testimonials.slice(0, 3)} duration={15} />
+                        <TestimonialsColumn testimonials={testimonials.slice(3, 6)} className="hidden md:block" duration={19} />
+                        <TestimonialsColumn testimonials={testimonials.slice(6, 9)} className="hidden lg:block" duration={17} />
                     </div>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tighter mt-5">
-                        Trusted by founders, teams & growing brands
-                    </h2>
-                    <p className="text-center mt-4 sm:mt-5 opacity-75 text-sm sm:text-base">
-                        Don&apos;t take our word for it — hear what our clients have to say.
-                    </p>
-                </motion.div>
-                <div className="flex justify-center gap-4 sm:gap-6 mt-8 sm:mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[500px] sm:max-h-[600px] md:max-h-[740px] overflow-hidden">
-                    <TestimonialsColumn testimonials={testimonials.slice(0, 3)} duration={15} />
-                    <TestimonialsColumn testimonials={testimonials.slice(3, 6)} className="hidden md:block" duration={19} />
-                    <TestimonialsColumn testimonials={testimonials.slice(6, 9)} className="hidden lg:block" duration={17} />
                 </div>
             </div>
         </section>

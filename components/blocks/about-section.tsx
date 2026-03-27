@@ -13,7 +13,7 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-center mb-12 md:mb-16"
+            className="text-center mb-8 md:mb-12"
           >
             <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3">About Us</p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
@@ -21,7 +21,7 @@ export default function AboutSection() {
             </h2>
           </motion.div>
 
-          <div className="relative min-h-[300px] sm:min-h-[350px] md:min-h-[400px] flex items-center justify-center">
+          <div className="relative min-h-[250px] sm:min-h-[300px] md:min-h-[350px] flex items-center justify-center">
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background to-transparent" />
             <div className="relative z-10 w-full">
               <MagicText 
