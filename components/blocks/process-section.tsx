@@ -1,9 +1,9 @@
 'use client';
 
 import { motion, useInView } from 'motion/react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Check, Circle, Clock, AlertCircle, GitBranch, FileText, Search, Monitor, Database, CreditCard, Paintbrush, Video, Code, Terminal, Cloud, Globe, Bug, BarChart2 } from 'lucide-react';
+import { Check, Circle, Clock, AlertCircle, GitBranch, FileText, Search, Monitor, Database, CreditCard, Paintbrush, Video, Code, Terminal, Cloud, Globe, Bug, BarChart2, ChevronDown } from 'lucide-react';
 
 const toolIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
     'discovery-call': Circle,
@@ -119,19 +119,24 @@ const tasks = [
 export default function ProcessSection() {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-100px" });
+    const [expandedTask, setExpandedTask] = useState<string | null>(null);
+
+    const toggleTask = (taskId: string) => {
+        setExpandedTask(expandedTask === taskId ? null : taskId);
+    };
 
     return (
-        <section id="process" className="py-16 md:py-32 px-4">
-            <div className="mx-auto max-w-3xl text-center mb-12">
+        <section id="process" className="py-16 md:py-24 px-4">
+            <div className="mx-auto max-w-3xl text-center mb-10 md:mb-12">
                 <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3">How We Work</p>
-                <h2 className="text-3xl font-bold tracking-tight md:text-5xl">
-                    From Brief to Launch — Our Proven Process
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+                    From Brief to Launch
                 </h2>
-                <p className="text-muted-foreground mt-4 text-base">
-                    A transparent, step-by-step workflow so you always know what&apos;s happening and what&apos;s next.
+                <p className="text-muted-foreground mt-4 text-sm sm:text-base">
+                    Tap each phase to explore our step-by-step workflow.
                 </p>
             </div>
-            <div ref={ref} className="w-full max-w-3xl mx-auto space-y-4">
+            <div ref={ref} className="w-full max-w-3xl mx-auto space-y-3 sm:space-y-4">
                 {tasks.map((task, taskIndex) => (
                     <motion.div
                         key={task.id}
@@ -140,53 +145,74 @@ export default function ProcessSection() {
                         transition={{ duration: 0.5, delay: taskIndex * 0.1 }}
                         className="relative"
                     >
-                        <div className="flex items-start gap-4 p-6 rounded-2xl border bg-card">
-                            <div className="flex flex-col items-center gap-2">
-                                <div className={cn(
-                                    "flex size-10 items-center justify-center rounded-full border-2",
-                                    task.status === "completed" && "border-emerald-500 bg-emerald-500/10",
-                                    task.status === "in-progress" && "border-amber-500 bg-amber-500/10",
-                                    task.status === "pending" && "border-muted bg-muted/50"
-                                )}>
-                                    {getStatusIcon(task.status)}
-                                </div>
-                                {taskIndex < tasks.length - 1 && <div className="h-full w-px bg-border" />}
+                        <button
+                            onClick={() => toggleTask(task.id)}
+                            className="w-full flex items-start gap-3 sm:gap-4 p-4 sm:p-6 rounded-2xl border bg-card text-left hover:bg-muted/30 transition-colors cursor-pointer"
+                        >
+                            <div className={cn(
+                                "flex size-8 sm:size-10 items-center justify-center rounded-full border-2 flex-shrink-0 mt-0.5",
+                                task.status === "completed" && "border-emerald-500 bg-emerald-500/10",
+                                task.status === "in-progress" && "border-amber-500 bg-amber-500/10",
+                                task.status === "pending" && "border-muted bg-muted/50"
+                            )}>
+                                {getStatusIcon(task.status)}
                             </div>
                             <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 mb-1">
-                                    <h3 className="font-semibold text-lg">{task.title}</h3>
+                                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                                    <h3 className="font-semibold text-base sm:text-lg">{task.title}</h3>
                                     <span className={cn("text-xs px-2 py-0.5 rounded-full font-medium", getPriorityColor(task.priority))}>
                                         {task.priority}
                                     </span>
                                 </div>
-                                <p className="text-sm text-muted-foreground mb-4">{task.description}</p>
-                                <div className="space-y-3">
+                                <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{task.description}</p>
+                                <p className="text-xs text-muted-foreground mt-2">Tap to see {task.subtasks.length} steps</p>
+                            </div>
+                            <motion.div
+                                animate={{ rotate: expandedTask === task.id ? 180 : 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="flex-shrink-0 mt-2"
+                            >
+                                <ChevronDown className="size-5 sm:size-6 text-muted-foreground" />
+                            </motion.div>
+                        </button>
+                        
+                        <motion.div
+                            initial={false}
+                            animate={{
+                                height: expandedTask === task.id ? "auto" : 0,
+                                opacity: expandedTask === task.id ? 1 : 0,
+                            }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            className="overflow-hidden"
+                        >
+                            <div className="pt-3 sm:pt-4 pb-2 px-2">
+                                <div className="space-y-2 sm:space-y-3 ml-2 sm:ml-0">
                                     {task.subtasks.map((subtask, subtaskIndex) => {
                                         const ToolIcon = toolIconMap[subtask.tools?.[0] || ''] || Circle;
                                         return (
                                             <motion.div
                                                 key={subtask.id}
                                                 initial={{ opacity: 0, x: -10 }}
-                                                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-                                                transition={{ duration: 0.3, delay: taskIndex * 0.1 + subtaskIndex * 0.05 }}
-                                                className="flex items-start gap-3 p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors"
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ duration: 0.3, delay: subtaskIndex * 0.05 }}
+                                                className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors"
                                             >
-                                                <div className="flex size-6 items-center justify-center rounded-md bg-background shadow-sm">
+                                                <div className="flex size-5 sm:size-6 items-center justify-center rounded-md bg-background shadow-sm flex-shrink-0 mt-0.5">
                                                     {getStatusIcon(subtask.status)}
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <div className="flex items-center gap-2 mb-0.5">
-                                                        <span className="text-xs font-mono text-muted-foreground">{subtask.id}</span>
-                                                        <h4 className="text-sm font-medium">{subtask.title}</h4>
+                                                    <div className="flex items-center gap-2 mb-0.5 flex-wrap">
+                                                        <span className="text-xs sm:text-sm font-mono text-muted-foreground">{subtask.id}</span>
+                                                        <h4 className="text-sm sm:text-base font-medium">{subtask.title}</h4>
                                                     </div>
-                                                    <p className="text-xs text-muted-foreground">{subtask.description}</p>
+                                                    <p className="text-xs text-muted-foreground hidden sm:block">{subtask.description}</p>
                                                 </div>
-                                                <div className="flex items-center gap-1">
-                                                    {subtask.tools?.map((tool) => {
+                                                <div className="flex items-center gap-1 flex-shrink-0">
+                                                    {subtask.tools?.slice(0, 2).map((tool) => {
                                                         const TIcon = toolIconMap[tool] || Circle;
                                                         return (
-                                                            <div key={tool} className="flex size-6 items-center justify-center rounded-md bg-background shadow-sm">
-                                                                <TIcon className="size-3.5 text-muted-foreground" />
+                                                            <div key={tool} className="flex size-6 sm:size-7 items-center justify-center rounded-md bg-background shadow-sm">
+                                                                <TIcon className="size-3 sm:size-4 text-muted-foreground" />
                                                             </div>
                                                         );
                                                     })}
@@ -196,7 +222,7 @@ export default function ProcessSection() {
                                     })}
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </motion.div>
                 ))}
             </div>
