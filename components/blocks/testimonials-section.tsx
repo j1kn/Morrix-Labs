@@ -16,10 +16,10 @@ export function TestimonialsColumn({ testimonials, className, duration = 15 }: {
             <div className="overflow-hidden py-4">
                 <motion.div className="flex flex-col gap-4 pb-4" animate={{ translateY: ['0%', '-50%'] }} transition={{ duration, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}>
                     {[...testimonials, ...testimonials].map((item, index) => (
-                        <Card key={index} className="w-[280px] sm:w-[320px] p-4 sm:p-6 bg-card border-border/50 shadow-md">
-                            <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground mb-4">&ldquo;{item.text}&rdquo;</p>
-                            <div className="flex items-center gap-3">
-                                <img src={item.image} alt={item.name} className="size-8 sm:size-10 rounded-full object-cover" />
+                        <Card key={index} className="w-[280px] sm:w-[300px] md:w-[320px] p-4 sm:p-5 md:p-6 bg-card border-border/50 shadow-md">
+                            <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground mb-3 sm:mb-4">&ldquo;{item.text}&rdquo;</p>
+                            <div className="flex items-center gap-2 sm:gap-3">
+                                <img src={item.image} alt={item.name} className="size-8 sm:size-9 md:size-10 rounded-full object-cover" />
                                 <div>
                                     <p className="text-xs sm:text-sm font-medium">{item.name}</p>
                                     <p className="text-[10px] sm:text-xs text-muted-foreground">{item.role}</p>
@@ -47,7 +47,7 @@ const testimonials = [
 
 export default function TestimonialsSection() {
     return (
-        <section id="testimonials" className="py-16 md:py-24 bg-background">
+        <section id="testimonials" className="py-20 md:py-28 bg-background">
             <div className="container">
                 <div className="mx-auto max-w-5xl">
                     <motion.div 
@@ -55,19 +55,19 @@ export default function TestimonialsSection() {
                         whileInView={{ opacity: 1, y: 0 }} 
                         transition={{ duration: 0.8, delay: 0.1 }} 
                         viewport={{ once: true }} 
-                        className="flex flex-col items-center justify-center text-center mb-12 md:mb-16 px-4"
+                        className="flex flex-col items-center justify-center text-center mb-10 md:mb-14 px-4"
                     >
-                        <div className="flex justify-center">
-                            <div className="border py-1 px-4 rounded-lg text-xs sm:text-sm">Client Stories</div>
+                        <div className="flex justify-center mb-4">
+                            <span className="border py-1 px-4 rounded-lg text-xs sm:text-sm">Client Stories</span>
                         </div>
-                        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tighter mt-5">
+                        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tighter">
                             Trusted by founders, teams & growing brands
                         </h2>
-                        <p className="text-center mt-4 sm:mt-5 opacity-75 text-sm sm:text-base max-w-xl">
+                        <p className="text-center mt-4 opacity-75 text-sm sm:text-base max-w-xl">
                             Don&apos;t take our word for it — hear what our clients have to say.
                         </p>
                     </motion.div>
-                    <div className="flex justify-center gap-4 sm:gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[500px] sm:max-h-[600px] md:max-h-[740px] overflow-hidden">
+                    <div className="flex justify-center gap-4 sm:gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[400px] sm:max-h-[500px] md:max-h-[600px] overflow-hidden">
                         <TestimonialsColumn testimonials={testimonials.slice(0, 3)} duration={15} />
                         <TestimonialsColumn testimonials={testimonials.slice(3, 6)} className="hidden md:block" duration={19} />
                         <TestimonialsColumn testimonials={testimonials.slice(6, 9)} className="hidden lg:block" duration={17} />

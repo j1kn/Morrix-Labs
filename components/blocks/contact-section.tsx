@@ -5,12 +5,12 @@ import { LocationMap } from "@/components/ui/expand-map";
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="py-16 md:py-24">
+    <section id="contact" className="py-20 md:py-28">
       <div className="container">
         <div className="mx-auto max-w-5xl px-4">
-          <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-16">
+          <div className="flex flex-col lg:flex-row justify-between gap-10 lg:gap-16 xl:gap-20">
             <div className="w-full lg:w-1/2">
-              <div className="mb-8 text-center lg:text-left">
+              <div className="mb-6 md:mb-8 text-center lg:text-left">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
                   Start Your Project
                 </h2>
@@ -21,7 +21,7 @@ export default function ContactSection() {
               <Contact2 email="hello@morrixlabs.com" />
             </div>
             
-            <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-end justify-center gap-6 lg:gap-8">
+            <div className="w-full lg:w-[45%] flex flex-col items-center lg:items-end justify-center gap-5 sm:gap-6 lg:gap-8">
               <LocationMap 
                 location="Coventry, UK"
                 coordinates="52.4068° N, 1.5197° W"

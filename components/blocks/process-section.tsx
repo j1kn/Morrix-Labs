@@ -3,33 +3,7 @@
 import { motion, useInView } from 'motion/react';
 import { useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Check, Circle, Clock, AlertCircle, GitBranch, FileText, Search, Monitor, Database, CreditCard, Paintbrush, Video, Code, Terminal, Cloud, Globe, Bug, BarChart2, ChevronDown } from 'lucide-react';
-
-const toolIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-    'discovery-call': Circle,
-    'notion': FileText,
-    'research': Search,
-    'browser': Monitor,
-    'file-system': Database,
-    'figma': Paintbrush,
-    'brand-kit': Paintbrush,
-    'loom': Video,
-    'github': GitBranch,
-    'vscode': Code,
-    'vercel': Cloud,
-    'supabase': Database,
-    'stripe': CreditCard,
-    'api-client': Terminal,
-    'playwright': Bug,
-    'jest': Bug,
-    'browserstack': Globe,
-    'cloudflare': Cloud,
-    'github-actions': GitBranch,
-    'sentry': AlertCircle,
-    'vercel-analytics': BarChart2,
-    'google-search-console': Search,
-    'ga4': BarChart2,
-};
+import { Check, Circle, Clock, ChevronDown } from 'lucide-react';
 
 const getStatusIcon = (status: string) => {
     switch (status) {
@@ -61,9 +35,9 @@ const tasks = [
         status: "completed",
         priority: "high",
         subtasks: [
-            { id: "1.1", title: "Stakeholder kick-off call", description: "A focused session to align on vision, timelines, and success metrics.", status: "completed", priority: "high", tools: ["discovery-call", "notion"] },
-            { id: "1.2", title: "Competitor & market research", description: "We analyse your competitive landscape to find opportunities and positioning gaps.", status: "completed", priority: "medium", tools: ["research", "browser"] },
-            { id: "1.3", title: "Project scope & proposal", description: "A clear written scope, timeline, and pricing document sent for your approval.", status: "completed", priority: "medium", tools: ["notion", "file-system"] },
+            { id: "1.1", title: "Stakeholder kick-off call", description: "A focused session to align on vision, timelines, and success metrics.", status: "completed", priority: "high" },
+            { id: "1.2", title: "Competitor & market research", description: "We analyse your competitive landscape to find opportunities and positioning gaps.", status: "completed", priority: "medium" },
+            { id: "1.3", title: "Project scope & proposal", description: "A clear written scope, timeline, and pricing document sent for your approval.", status: "completed", priority: "medium" },
         ],
     },
     {
@@ -73,9 +47,9 @@ const tasks = [
         status: "in-progress",
         priority: "high",
         subtasks: [
-            { id: "2.1", title: "Wireframes & user flows", description: "Low-fidelity blueprints that map out every screen and interaction.", status: "completed", priority: "high", tools: ["figma"] },
-            { id: "2.2", title: "High-fidelity UI design", description: "Pixel-perfect mockups with your brand colours, fonts, and components.", status: "in-progress", priority: "medium", tools: ["figma", "brand-kit"] },
-            { id: "2.3", title: "Interactive prototype & feedback", description: "A clickable prototype shared for your review and sign-off.", status: "pending", priority: "high", tools: ["figma", "loom"] },
+            { id: "2.1", title: "Wireframes & user flows", description: "Low-fidelity blueprints that map out every screen and interaction.", status: "completed", priority: "high" },
+            { id: "2.2", title: "High-fidelity UI design", description: "Pixel-perfect mockups with your brand colours, fonts, and components.", status: "in-progress", priority: "medium" },
+            { id: "2.3", title: "Interactive prototype & feedback", description: "A clickable prototype shared for your review and sign-off.", status: "pending", priority: "high" },
         ],
     },
     {
@@ -85,9 +59,9 @@ const tasks = [
         status: "pending",
         priority: "high",
         subtasks: [
-            { id: "3.1", title: "Frontend development", description: "Responsive, performant UI built with Next.js, React, and Tailwind CSS.", status: "pending", priority: "high", tools: ["github", "vscode", "vercel"] },
-            { id: "3.2", title: "Backend & integrations", description: "APIs, databases, authentication, and third-party integrations configured.", status: "pending", priority: "high", tools: ["supabase", "stripe", "api-client"] },
-            { id: "3.3", title: "QA & testing", description: "Cross-browser, cross-device testing plus automated checks before any release.", status: "pending", priority: "medium", tools: ["playwright", "jest", "browserstack"] },
+            { id: "3.1", title: "Frontend development", description: "Responsive, performant UI built with Next.js, React, and Tailwind CSS.", status: "pending", priority: "high" },
+            { id: "3.2", title: "Backend & integrations", description: "APIs, databases, authentication, and third-party integrations configured.", status: "pending", priority: "high" },
+            { id: "3.3", title: "QA & testing", description: "Cross-browser, cross-device testing plus automated checks before any release.", status: "pending", priority: "medium" },
         ],
     },
     {
@@ -97,9 +71,9 @@ const tasks = [
         status: "pending",
         priority: "high",
         subtasks: [
-            { id: "4.1", title: "Staging environment review", description: "Final review on a staging URL before going public.", status: "pending", priority: "high", tools: ["vercel", "browser"] },
-            { id: "4.2", title: "Production deployment", description: "Zero-downtime deployment to your custom domain with SSL and CDN.", status: "pending", priority: "high", tools: ["vercel", "cloudflare", "github-actions"] },
-            { id: "4.3", title: "Handoff & training", description: "Video walkthrough and documentation so your team can manage the product confidently.", status: "pending", priority: "medium", tools: ["loom", "notion"] },
+            { id: "4.1", title: "Staging environment review", description: "Final review on a staging URL before going public.", status: "pending", priority: "high" },
+            { id: "4.2", title: "Production deployment", description: "Zero-downtime deployment to your custom domain with SSL and CDN.", status: "pending", priority: "high" },
+            { id: "4.3", title: "Handoff & training", description: "Video walkthrough and documentation so your team can manage the product confidently.", status: "pending", priority: "medium" },
         ],
     },
     {
@@ -109,9 +83,9 @@ const tasks = [
         status: "pending",
         priority: "medium",
         subtasks: [
-            { id: "5.1", title: "Performance monitoring", description: "Uptime, Core Web Vitals, and error tracking configured from day one.", status: "pending", priority: "medium", tools: ["sentry", "vercel-analytics"] },
-            { id: "5.2", title: "SEO & analytics setup", description: "Google Search Console, GA4, and structured data configured for organic growth.", status: "pending", priority: "medium", tools: ["google-search-console", "ga4"] },
-            { id: "5.3", title: "Retainer & iteration", description: "Monthly support retainers available for ongoing feature development and optimisation.", status: "pending", priority: "low", tools: ["notion", "github"] },
+            { id: "5.1", title: "Performance monitoring", description: "Uptime, Core Web Vitals, and error tracking configured from day one.", status: "pending", priority: "medium" },
+            { id: "5.2", title: "SEO & analytics setup", description: "Google Search Console, GA4, and structured data configured for organic growth.", status: "pending", priority: "medium" },
+            { id: "5.3", title: "Retainer & iteration", description: "Monthly support retainers available for ongoing feature development and optimisation.", status: "pending", priority: "low" },
         ],
     },
 ];
@@ -126,70 +100,68 @@ export default function ProcessSection() {
     };
 
     return (
-        <section id="process" className="py-16 md:py-24 px-4">
-            <div className="mx-auto max-w-3xl text-center mb-10 md:mb-12">
-                <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3">How We Work</p>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
-                    From Brief to Launch
-                </h2>
-                <p className="text-muted-foreground mt-4 text-sm sm:text-base">
-                    Tap each phase to explore our step-by-step workflow.
-                </p>
-            </div>
-            <div ref={ref} className="w-full max-w-3xl mx-auto space-y-3 sm:space-y-4">
-                {tasks.map((task, taskIndex) => (
-                    <motion.div
-                        key={task.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                        transition={{ duration: 0.5, delay: taskIndex * 0.1 }}
-                        className="relative"
-                    >
-                        <button
-                            onClick={() => toggleTask(task.id)}
-                            className="w-full flex items-start gap-3 sm:gap-4 p-4 sm:p-6 rounded-2xl border bg-card text-left hover:bg-muted/30 transition-colors cursor-pointer"
-                        >
-                            <div className={cn(
-                                "flex size-8 sm:size-10 items-center justify-center rounded-full border-2 flex-shrink-0 mt-0.5",
-                                task.status === "completed" && "border-emerald-500 bg-emerald-500/10",
-                                task.status === "in-progress" && "border-amber-500 bg-amber-500/10",
-                                task.status === "pending" && "border-muted bg-muted/50"
-                            )}>
-                                {getStatusIcon(task.status)}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 mb-1 flex-wrap">
-                                    <h3 className="font-semibold text-base sm:text-lg">{task.title}</h3>
-                                    <span className={cn("text-xs px-2 py-0.5 rounded-full font-medium", getPriorityColor(task.priority))}>
-                                        {task.priority}
-                                    </span>
-                                </div>
-                                <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{task.description}</p>
-                                <p className="text-xs text-muted-foreground mt-2">Tap to see {task.subtasks.length} steps</p>
-                            </div>
-                            <motion.div
-                                animate={{ rotate: expandedTask === task.id ? 180 : 0 }}
-                                transition={{ duration: 0.2 }}
-                                className="flex-shrink-0 mt-2"
-                            >
-                                <ChevronDown className="size-5 sm:size-6 text-muted-foreground" />
-                            </motion.div>
-                        </button>
-                        
+        <section id="process" className="py-20 md:py-28 px-4">
+            <div className="container">
+                <div className="mx-auto max-w-3xl text-center mb-8 md:mb-12">
+                    <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3">How We Work</p>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+                        From Brief to Launch
+                    </h2>
+                    <p className="text-muted-foreground mt-4 text-sm sm:text-base">
+                        Tap each phase to explore our step-by-step workflow.
+                    </p>
+                </div>
+                <div ref={ref} className="w-full max-w-3xl mx-auto space-y-3 sm:space-y-4">
+                    {tasks.map((task, taskIndex) => (
                         <motion.div
-                            initial={false}
-                            animate={{
-                                height: expandedTask === task.id ? "auto" : 0,
-                                opacity: expandedTask === task.id ? 1 : 0,
-                            }}
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                            className="overflow-hidden"
+                            key={task.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                            transition={{ duration: 0.5, delay: taskIndex * 0.1 }}
+                            className="relative"
                         >
-                            <div className="pt-3 sm:pt-4 pb-2 px-2">
-                                <div className="space-y-2 sm:space-y-3 ml-2 sm:ml-0">
-                                    {task.subtasks.map((subtask, subtaskIndex) => {
-                                        const ToolIcon = toolIconMap[subtask.tools?.[0] || ''] || Circle;
-                                        return (
+                            <button
+                                onClick={() => toggleTask(task.id)}
+                                className="w-full flex items-start gap-3 sm:gap-4 p-4 sm:p-5 md:p-6 rounded-2xl border bg-card text-left hover:bg-muted/30 transition-colors cursor-pointer"
+                            >
+                                <div className={cn(
+                                    "flex size-8 sm:size-9 md:size-10 items-center justify-center rounded-full border-2 flex-shrink-0 mt-0.5",
+                                    task.status === "completed" && "border-emerald-500 bg-emerald-500/10",
+                                    task.status === "in-progress" && "border-amber-500 bg-amber-500/10",
+                                    task.status === "pending" && "border-muted bg-muted/50"
+                                )}>
+                                    {getStatusIcon(task.status)}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-2 mb-1 flex-wrap">
+                                        <h3 className="font-semibold text-sm sm:text-base md:text-lg">{task.title}</h3>
+                                        <span className={cn("text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-medium", getPriorityColor(task.priority))}>
+                                            {task.priority}
+                                        </span>
+                                    </div>
+                                    <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{task.description}</p>
+                                </div>
+                                <motion.div
+                                    animate={{ rotate: expandedTask === task.id ? 180 : 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="flex-shrink-0 mt-1 sm:mt-2"
+                                >
+                                    <ChevronDown className="size-4 sm:size-5 text-muted-foreground" />
+                                </motion.div>
+                            </button>
+                            
+                            <motion.div
+                                initial={false}
+                                animate={{
+                                    height: expandedTask === task.id ? "auto" : 0,
+                                    opacity: expandedTask === task.id ? 1 : 0,
+                                }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="overflow-hidden"
+                            >
+                                <div className="pt-3 sm:pt-4 pb-2 px-1 sm:px-2">
+                                    <div className="space-y-2 sm:space-y-3">
+                                        {task.subtasks.map((subtask, subtaskIndex) => (
                                             <motion.div
                                                 key={subtask.id}
                                                 initial={{ opacity: 0, x: -10 }}
@@ -202,29 +174,19 @@ export default function ProcessSection() {
                                                 </div>
                                                 <div className="flex-1 min-w-0">
                                                     <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                                                        <span className="text-xs sm:text-sm font-mono text-muted-foreground">{subtask.id}</span>
-                                                        <h4 className="text-sm sm:text-base font-medium">{subtask.title}</h4>
+                                                        <span className="text-[10px] sm:text-xs font-mono text-muted-foreground">{subtask.id}</span>
+                                                        <h4 className="text-xs sm:text-sm md:text-base font-medium">{subtask.title}</h4>
                                                     </div>
-                                                    <p className="text-xs text-muted-foreground hidden sm:block">{subtask.description}</p>
-                                                </div>
-                                                <div className="flex items-center gap-1 flex-shrink-0">
-                                                    {subtask.tools?.slice(0, 2).map((tool) => {
-                                                        const TIcon = toolIconMap[tool] || Circle;
-                                                        return (
-                                                            <div key={tool} className="flex size-6 sm:size-7 items-center justify-center rounded-md bg-background shadow-sm">
-                                                                <TIcon className="size-3 sm:size-4 text-muted-foreground" />
-                                                            </div>
-                                                        );
-                                                    })}
+                                                    <p className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">{subtask.description}</p>
                                                 </div>
                                             </motion.div>
-                                        );
-                                    })}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         </motion.div>
-                    </motion.div>
-                ))}
+                    ))}
+                </div>
             </div>
         </section>
     );
