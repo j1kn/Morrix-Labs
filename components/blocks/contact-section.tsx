@@ -7,26 +7,23 @@ export default function ContactSection() {
   return (
     <section id="contact" className="py-16 md:py-32">
       <div className="container">
-        <main className="flex flex-col items-center justify-center w-full gap-16">
-          <div className="flex flex-col items-center gap-8">
-            <p className="text-muted-foreground text-xs font-medium tracking-[0.2em] uppercase">
-              Current Location
-            </p>
+        <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-16 lg:flex-row lg:gap-20">
+          <div className="w-full lg:w-1/2">
+            <Contact2 
+              email="hello@morrixlabs.com"
+            />
+          </div>
+          
+          <div className="w-full lg:w-1/2 flex flex-col items-center justify-center gap-8">
             <LocationMap 
               location="Coventry, UK"
               coordinates="52.4068° N, 1.5197° W"
             />
+            <p className="text-muted-foreground text-sm text-center">
+              Working remotely with clients worldwide
+            </p>
           </div>
-
-          <div className="w-full max-w-screen-md">
-            <Contact2 
-              title="Get in Touch"
-              description="Have a project in mind? We'd love to hear from you. Send us a message and we'll respond as soon as possible."
-              email="hello@morrixlabs.com"
-              web={{ label: "morrixlabs.com", url: "https://morrixlabs.com" }}
-            />
-          </div>
-        </main>
+        </div>
       </div>
     </section>
   );
