@@ -13,7 +13,7 @@ export default function ContactSection() {
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-center">
                 Start Your Project
               </h2>
-              <p className="text-muted-foreground mt-3 text-sm sm:text-base">
+              <p className="text-muted-foreground mt-3 text-sm sm:text-base text-center">
                 Have a project in mind? Let&apos;s talk.
               </p>
             </div>
