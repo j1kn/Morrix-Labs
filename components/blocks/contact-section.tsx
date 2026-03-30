@@ -10,7 +10,7 @@ export default function ContactSection() {
         <div className="flex flex-col lg:flex-row justify-between gap-10 lg:gap-16 xl:gap-20">
           <div className="w-full lg:w-1/2">
             <div className="mb-6 md:mb-8 text-center lg:text-left">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-center">
                 Start Your Project
               </h2>
               <p className="text-muted-foreground mt-3 text-sm sm:text-base">
