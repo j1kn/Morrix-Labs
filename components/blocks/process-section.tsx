@@ -102,12 +102,12 @@ export default function ProcessSection() {
     return (
         <section id="process" className="py-20 md:py-28">
             <div className="mx-auto max-w-7xl px-4 sm:px-6">
-                <div className="max-w-3xl text-center mb-8 md:mb-12">
-                    <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3">How We Work</p>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+                <div className="w-full max-w-3xl mx-auto text-center mb-8 md:mb-12">
+                    <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3 text-center">How We Work</p>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-center">
                         From Brief to Launch
                     </h2>
-                    <p className="text-muted-foreground mt-4 text-sm sm:text-base">
+                    <p className="text-muted-foreground mt-4 text-sm sm:text-base text-center">
                         Tap each phase to explore our step-by-step workflow.
                     </p>
                 </div>

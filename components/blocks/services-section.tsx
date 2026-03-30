@@ -82,12 +82,12 @@ export default function ServicesSection() {
     return (
         <section id="services" className="py-20 md:py-28">
             <div className="mx-auto max-w-7xl px-4 sm:px-6">
-                <AnimatedContainer className="max-w-3xl text-center mb-8 md:mb-12">
-                    <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3">What We Do</p>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-balance">
+                <AnimatedContainer className="w-full max-w-3xl mx-auto text-center mb-8 md:mb-12">
+                    <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3 text-center">What We Do</p>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-balance text-center">
                         Everything Your Business Needs to Win Online
                     </h2>
-                    <p className="text-muted-foreground mt-4 text-sm sm:text-base tracking-wide text-balance max-w-2xl mx-auto">
+                    <p className="text-muted-foreground mt-4 text-sm sm:text-base tracking-wide text-balance max-w-2xl mx-auto text-center">
                         From concept to launch — and beyond. Morrix Labs is your end-to-end digital partner.
                     </p>
                 </AnimatedContainer>
