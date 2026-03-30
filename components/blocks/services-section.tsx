@@ -81,27 +81,25 @@ function AnimatedContainer({ className, delay = 0.1, children }: ViewAnimationPr
 export default function ServicesSection() {
     return (
         <section id="services" className="py-20 md:py-28">
-            <div className="container">
-                <div className="mx-auto max-w-5xl px-4">
-                    <AnimatedContainer className="mx-auto max-w-3xl text-center mb-8 md:mb-12">
-                        <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3">What We Do</p>
-                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-balance">
-                            Everything Your Business Needs to Win Online
-                        </h2>
-                        <p className="text-muted-foreground mt-4 text-sm sm:text-base tracking-wide text-balance max-w-2xl mx-auto">
-                            From concept to launch — and beyond. Morrix Labs is your end-to-end digital partner.
-                        </p>
-                    </AnimatedContainer>
+            <div className="mx-auto max-w-7xl px-4 sm:px-6">
+                <AnimatedContainer className="max-w-3xl text-center mb-8 md:mb-12">
+                    <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3">What We Do</p>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-balance">
+                        Everything Your Business Needs to Win Online
+                    </h2>
+                    <p className="text-muted-foreground mt-4 text-sm sm:text-base tracking-wide text-balance max-w-2xl mx-auto">
+                        From concept to launch — and beyond. Morrix Labs is your end-to-end digital partner.
+                    </p>
+                </AnimatedContainer>
 
-                    <AnimatedContainer
-                        delay={0.4}
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6"
-                    >
-                        {features.map((feature, i) => (
-                            <FeatureCard key={i} feature={feature} />
-                        ))}
-                    </AnimatedContainer>
-                </div>
+                <AnimatedContainer
+                    delay={0.4}
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6"
+                >
+                    {features.map((feature, i) => (
+                        <FeatureCard key={i} feature={feature} />
+                    ))}
+                </AnimatedContainer>
             </div>
         </section>
     );

@@ -100,9 +100,9 @@ export default function ProcessSection() {
     };
 
     return (
-        <section id="process" className="py-20 md:py-28 px-4">
-            <div className="container">
-                <div className="mx-auto max-w-3xl text-center mb-8 md:mb-12">
+        <section id="process" className="py-20 md:py-28">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6">
+                <div className="max-w-3xl text-center mb-8 md:mb-12">
                     <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3">How We Work</p>
                     <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
                         From Brief to Launch
@@ -111,7 +111,7 @@ export default function ProcessSection() {
                         Tap each phase to explore our step-by-step workflow.
                     </p>
                 </div>
-                <div ref={ref} className="w-full max-w-3xl mx-auto space-y-3 sm:space-y-4">
+                <div ref={ref} className="max-w-3xl mx-auto space-y-3 sm:space-y-4">
                     {tasks.map((task, taskIndex) => (
                         <motion.div
                             key={task.id}
